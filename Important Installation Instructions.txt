@@ -1,0 +1,24 @@
+https://medium.com/@quicky316/install-flutter-sdk-on-windows-without-android-studio-102fdf567ce4
+
+
+---Installed Versions
+sdkmanager “system-images;android-28;default;x86_64”
+sdkmanager “platform-tools”
+sdkmanager “build-tools;28.0.3”
+sdkmanager “platforms;android-28”
+sdkmanager emulator
+
+
+
+avdmanager -s create avd -n pixel -k “system-images;android-28;default;x86_64”
+
+
+---Get Devices and replace the -d 19 with latest device id to show that device
+avdmanager list device
+avdmanager -s create avd -n latest -k “system-images;android-28;default;x86_64” -d 19
+
+-- Delete AVD
+avdmanager delete avd -n nexus
+
+
+avdmanager list avd
