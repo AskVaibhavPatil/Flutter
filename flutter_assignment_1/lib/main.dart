@@ -29,8 +29,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Flutter App'),
         ),
-        body: Container(
-          margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+        body: Center(
           child: Column(
             children: <Widget>[
               TextControl(textData),
