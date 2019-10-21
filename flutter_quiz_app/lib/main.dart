@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_complete_guide/quiz.dart';
-import 'package:flutter_complete_guide/result.dart';
+import 'package:flutter_quiz_app/quiz.dart';
+import 'package:flutter_quiz_app/result.dart';
 
 void main() => runApp(MyApp());
 

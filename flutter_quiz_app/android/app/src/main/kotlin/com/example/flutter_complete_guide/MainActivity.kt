@@ -1,4 +1,4 @@
-package com.example.flutter_complete_guide
+package com.example.flutter_quiz_app
 
 import android.os.Bundle
 
