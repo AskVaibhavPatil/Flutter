@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
 
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
   final Function addTxHandler;
   
   NewTransaction(this.addTxHandler);
+
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void submitData() {
     final String enteredTitle = titleController.text;
@@ -16,7 +23,11 @@ class NewTransaction extends StatelessWidget {
       return;
     }
 
-    addTxHandler(enteredTitle, enteredAmount);
+    //widget allows to use proerpties/method from parent class
+    widget.addTxHandler(enteredTitle, enteredAmount);
+
+    // Remove current screen from Navigator stack
+    Navigator.of(context).pop();
   }
 
   @override
