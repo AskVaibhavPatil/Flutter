@@ -17,15 +17,22 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _selectedDate;
 
   void _submitData() {
+    if(_amountController.text.isEmpty) {
+      return;
+    }
     final String enteredTitle = _titleController.text;
     final double enteredAmount = double.parse(_amountController.text);
 
-    if(enteredTitle.isEmpty || enteredAmount <=0) {
+    if(enteredTitle.isEmpty || enteredAmount <=0 || _selectedDate == null) {
       return;
     }
 
     //widget allows to use proerpties/method from parent class
-    widget.addTxHandler(enteredTitle, enteredAmount);
+    widget.addTxHandler(
+      enteredTitle,
+      enteredAmount,
+      _selectedDate
+    );
 
     // Remove current screen from Navigator stack
     Navigator.of(context).pop();
