@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import './widgets/chart.dart';
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './models/transaction.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown
+  // ]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -62,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
       date: DateTime.now()
     ),
   ];
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
@@ -105,9 +113,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }); 
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-
+    final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
     final appBar = AppBar(
         title: Text('Personal Expenses'),
         actions: <Widget>[
@@ -118,28 +128,55 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       );
 
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              height: (
-                MediaQuery.of(context).size.height 
-                - appBar.preferredSize.height
-                - MediaQuery.of(context).padding.top
-              ) * 0.3,
-              child: Chart(_recentTransactions)
-            ),
-            Container(
+  final txnList =  Container(
               height: (
                 MediaQuery.of(context).size.height 
                 - appBar.preferredSize.height
                 - MediaQuery.of(context).padding.top
               ) * 0.7,
               child: TransactionList(_userTransactions, _deleteTransaction)
+            );
+
+    return Scaffold(
+      appBar: appBar,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            if(isLandscape) Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('Show Chart'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (val) {
+                    setState(() {
+                     _showChart = val; 
+                    });
+                  },
+                )
+              ],
             ),
+            if(!isLandscape)
+            Container(
+              height: (
+                MediaQuery.of(context).size.height 
+                - appBar.preferredSize.height
+                - MediaQuery.of(context).padding.top
+              ) * 0.7,
+              child: Chart(_recentTransactions)
+            ),
+            if(!isLandscape)
+            txnList,
+            if(isLandscape)
+            _showChart ? Container(
+              height: (
+                MediaQuery.of(context).size.height 
+                - appBar.preferredSize.height
+                - MediaQuery.of(context).padding.top
+              ) * 0.7,
+              child: Chart(_recentTransactions)
+            ) : txnList,
           ],
         ),
       ),
