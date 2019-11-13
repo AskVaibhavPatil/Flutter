@@ -39,7 +39,7 @@ class ProductsProvider with ChangeNotifier {
   ];
 
   List<Product> get items {
-    return [...items];  // Return a copy instead of pointer
+    return [..._items];  // Return a copy instead of pointer
   }
 
   void addProduct(Product product) {
