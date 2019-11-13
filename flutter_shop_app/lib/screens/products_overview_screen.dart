@@ -46,17 +46,20 @@ class ProductsOverviewScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('MyShop'),
       ),
-      body: GridView.builder(
-        itemCount: loadedProducts.length,
-        itemBuilder: (ctx, index) {
-          Product product = loadedProducts[index];
-          return ProductItem(product.id, product.title, product.imageUrl);
-        },
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3/2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10
+      body: Container(
+        padding: EdgeInsets.all(10),
+        child: GridView.builder(
+          itemCount: loadedProducts.length,
+          itemBuilder: (ctx, index) {
+            Product product = loadedProducts[index];
+            return ProductItem(product.id, product.title, product.imageUrl);
+          },
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 3/2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10
+          ),
         ),
       ),
     );
