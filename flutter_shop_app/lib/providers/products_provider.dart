@@ -42,6 +42,10 @@ class ProductsProvider with ChangeNotifier {
     return [..._items];  // Return a copy instead of pointer
   }
 
+  Product findById(String id) {
+    return _items.firstWhere((product) => product.id == id);
+  }
+
   void addProduct(Product product) {
     _items.add(product);
     notifyListeners();
